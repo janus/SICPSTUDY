@@ -235,4 +235,9 @@
 ;; the list
 ;; The second attempt failed woefully because of cons, whose second argument must be a list .. her it was not
 
-(defn
+
+;; Ex 2.23
+(defn for-each [f coll]
+                (if (not (empty? coll))
+                    (do (f (first coll)) (for-each f (rest coll)))))
+
