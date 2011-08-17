@@ -199,3 +199,40 @@
 
 (defn n-fold-smooth [n x]
 ((my-repeated smooth n) x))
+
+;;Ex 2.19
+(defn no-more? [coll] (empty? coll))
+(defn except-first-denomination [coll] (rest coll))
+(defn first-denomination [coll] (first coll))
+(defn cc [amount coll]
+       (cond
+          (= amount 0) 1
+          (or (< amount 0) (no-more? coll)) 0
+           :else  ( + (cc amount (except-first-denomination coll))
+                       (cc (- amount (first-denomination coll)) coll))))
+;; The arrangement of elements in the list does not affect the result ... Beacuse all elements are given equal chance
+
+;;Ex 2.20
+
+(defn bit? [b] (fn [n] (= 1 (bit-and b n))))
+
+(defn same-parity [ & data] (let [fn-bit?  (bit? (first data )) coll (rest coll)]
+                            (filter fn-bit? coll)))
+
+;; Ex 2.21
+(defn square [n] (* n n))
+
+;; Using my baked recursive
+(defn my-square-list [coll] (if (empty? coll) '() (cons (square (first coll)) (my-square-list (rest coll)))))
+
+;; Usinf map
+
+(defn square-list [coll] (map square coll))
+
+;; Ex 2.22
+;; The reason why the result list was a reverse because of the use of cons..
+;; cons takes an item as the first argument and the second a list ... Here, the recursive pushes the result on top of 
+;; the list
+;; The second attempt failed woefully because of cons, whose second argument must be a list .. her it was not
+
+(defn
